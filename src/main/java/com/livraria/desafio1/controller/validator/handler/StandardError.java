@@ -1,4 +1,4 @@
-package com.livraria.desafio1.controller.validator;
+package com.livraria.desafio1.controller.validator.handler;
 
 import java.time.Instant;
 
