@@ -16,12 +16,12 @@ import javax.validation.Valid;
 public class CategoriaController {
     @PersistenceContext
     private EntityManager manager;
-    @Autowired
-    private ProibeCategoriaDuplicadaValidator proibeCategoriaDuplicadaValidator;
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.addValidators(proibeCategoriaDuplicadaValidator);
-    }
+//    @Autowired
+//    private ProibeCategoriaDuplicadaValidator proibeCategoriaDuplicadaValidator;
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder) {
+//        binder.addValidators(proibeCategoriaDuplicadaValidator);
+//    }
 
     @PostMapping(value = "/create")
     @Transactional

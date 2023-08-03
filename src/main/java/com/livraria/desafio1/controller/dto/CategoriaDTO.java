@@ -1,11 +1,13 @@
 package com.livraria.desafio1.controller.dto;
 
 import com.livraria.desafio1.controller.Categoria;
+import com.livraria.desafio1.controller.validator.UniqueValue;
 
 import javax.validation.constraints.NotBlank;
 
 public class CategoriaDTO {
     @NotBlank
+    @UniqueValue(domainClass = Categoria.class, fieldName = "nome")
     private String nome;
 
     public CategoriaDTO() {
