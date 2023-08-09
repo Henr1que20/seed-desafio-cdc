@@ -1,4 +1,4 @@
-package com.livraria.desafio1.controller;
+package com.livraria.desafio1.model;
 
 import javax.persistence.*;
 

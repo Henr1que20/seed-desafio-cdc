@@ -1,6 +1,6 @@
 package com.livraria.desafio1.controller.validator;
 
-import com.livraria.desafio1.controller.Categoria;
+import com.livraria.desafio1.model.Categoria;
 import com.livraria.desafio1.controller.dto.CategoriaDTO;
 import com.livraria.desafio1.repo.CategoriaRepository;
 import com.livraria.desafio1.service.exceptions.DuplicateException;

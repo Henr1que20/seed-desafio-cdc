@@ -1,6 +1,6 @@
 package com.livraria.desafio1.controller.dto;
 
-import com.livraria.desafio1.controller.Categoria;
+import com.livraria.desafio1.model.Categoria;
 import com.livraria.desafio1.controller.validator.UniqueValue;
 
 import javax.validation.constraints.NotBlank;

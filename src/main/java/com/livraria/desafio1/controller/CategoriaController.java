@@ -1,10 +1,8 @@
 package com.livraria.desafio1.controller;
 
 import com.livraria.desafio1.controller.dto.CategoriaDTO;
-import com.livraria.desafio1.controller.validator.ProibeCategoriaDuplicadaValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.livraria.desafio1.model.Categoria;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
