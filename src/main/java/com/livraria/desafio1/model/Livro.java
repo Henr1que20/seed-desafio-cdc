@@ -43,7 +43,19 @@ public class Livro {
     public Livro() {
     }
 
-    public Livro(String titulo, String resumo, String sumario, BigDecimal preco, BigInteger numeroPaginas, String isbn, LocalDate dataPublicacao) {
+    public Livro(String titulo, String resumo, String sumario, BigDecimal preco, BigInteger numeroPaginas, String isbn, LocalDate dataPublicacao, Categoria categoria, Autor autor) {
+        this.titulo = titulo;
+        this.resumo = resumo;
+        this.sumario = sumario;
+        this.preco = preco;
+        this.numeroPaginas = numeroPaginas;
+        this.isbn = isbn;
+        this.dataPublicacao = dataPublicacao;
+        this.categoria = categoria;
+        this.autor = autor;
+    }
+
+    public Livro(String titulo, String resumo, String sumario, BigDecimal preco, BigInteger numeroPaginas, String isbn, LocalDate dataPublicacao, Autor autor, Categoria categoria) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;

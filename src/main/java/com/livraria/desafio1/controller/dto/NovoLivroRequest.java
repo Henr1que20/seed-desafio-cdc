@@ -1,9 +1,15 @@
 package com.livraria.desafio1.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.livraria.desafio1.controller.validator.ExistsId;
 import com.livraria.desafio1.controller.validator.UniqueValue;
+import com.livraria.desafio1.model.Autor;
+import com.livraria.desafio1.model.Categoria;
 import com.livraria.desafio1.model.Livro;
+import com.sun.istack.NotNull;
+import org.springframework.util.Assert;
 
+import javax.persistence.EntityManager;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -26,17 +32,19 @@ public class NovoLivroRequest {
     @UniqueValue(domainClass = Livro.class, fieldName = "isbn")
     private String isbn;
     @Future
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate dataPublicacao;
-    @NotBlank
-    private String categoria;
-    @NotBlank
-    private String autor;
+    @NotNull
+    @ExistsId(domainClass =  Categoria.class, fieldName = "id")
+    private Long idCategoria;
+    @NotNull
+    @ExistsId(domainClass =  Autor.class, fieldName = "id")
+    private Long idAutor;
 
     public NovoLivroRequest() {
     }
 
-    public NovoLivroRequest(String titulo, String resumo, String sumario, BigDecimal preco, BigInteger numeroPaginas, String isbn, LocalDate dataPublicacao, String categoria, String autor) {
+    public NovoLivroRequest(String titulo, String resumo, String sumario, BigDecimal preco, BigInteger numeroPaginas, String isbn, LocalDate dataPublicacao, Long idCategoria, Long idAutor) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
@@ -44,8 +52,8 @@ public class NovoLivroRequest {
         this.numeroPaginas = numeroPaginas;
         this.isbn = isbn;
         this.dataPublicacao = dataPublicacao;
-        this.categoria = categoria;
-        this.autor = autor;
+        this.idCategoria = idCategoria;
+        this.idAutor = idAutor;
     }
 
     public String getTitulo() {
@@ -104,25 +112,35 @@ public class NovoLivroRequest {
         this.dataPublicacao = dataPublicacao;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public Long getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setIdCategoria(Long idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
-    public String getAutor() {
-        return autor;
+    public Long getIdAutor() {
+        return idAutor;
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setIdAutor(Long idAutor) {
+        this.idAutor = idAutor;
     }
 
+//    public Livro toModel() {
+//        return new Livro(this.titulo, this.resumo, this.sumario, this.preco, this.numeroPaginas, this.isbn,
+//                this.dataPublicacao);
+//    }
 
-    public Livro toModel() {
+    public Livro toModel(final EntityManager manager) {
+        final Autor autor = manager.find(Autor.class, idAutor);
+        final Categoria categoria = manager.find(Categoria.class, idCategoria);
+
+        Assert.state(autor != null, "Voce esta tentando cadastrar um Livro para um autor que nao existe id="+idAutor);
+        Assert.state(categoria != null, "Voce esta tentando cadastrar um Livro para uma categoria que nao existe id="+idCategoria);
+
         return new Livro(this.titulo, this.resumo, this.sumario, this.preco, this.numeroPaginas, this.isbn,
-                this.dataPublicacao);
+                this.dataPublicacao, categoria, autor);
     }
 }

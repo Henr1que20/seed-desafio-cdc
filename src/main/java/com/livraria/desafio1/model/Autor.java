@@ -8,7 +8,7 @@ import java.time.Instant;
 public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     private String nome;
     private String email;
     private String descricao;
@@ -23,17 +23,17 @@ public class Autor {
     }
 
     public Autor(Long id, String nome, String email, String descricao) {
-        Id = id;
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
     }
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        id = id;
     }
 
     public String getNome() {
@@ -69,7 +69,7 @@ public class Autor {
     @Override
     public String toString() {
         return "Autor{" +
-                "Id=" + Id +
+                "Id=" + id +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", descricao='" + descricao + '\'' +
