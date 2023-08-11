@@ -128,11 +128,6 @@ public class NovoLivroRequest {
         this.idAutor = idAutor;
     }
 
-//    public Livro toModel() {
-//        return new Livro(this.titulo, this.resumo, this.sumario, this.preco, this.numeroPaginas, this.isbn,
-//                this.dataPublicacao);
-//    }
-
     public Livro toModel(final EntityManager manager) {
         final Autor autor = manager.find(Autor.class, idAutor);
         final Categoria categoria = manager.find(Categoria.class, idCategoria);
