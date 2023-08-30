@@ -12,8 +12,6 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-//    @OneToMany(mappedBy = "categoria")
-//    private List<Livro> livroa = new ArrayList<>();
 
     public Categoria(Long id, String nome) {
         this.id = id;
@@ -41,14 +39,6 @@ public class Categoria {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-//    public List<Livro> getLivroa() {
-//        return livroa;
-//    }
-//
-//    public void setLivroa(List<Livro> livroa) {
-//        this.livroa = livroa;
-//    }
 
     @Override
     public String toString() {

@@ -15,8 +15,6 @@ public class Autor {
     private String email;
     private String descricao;
     private Instant datCriacao;
-//    @OneToMany(mappedBy = "autor")
-//    private List<Livro> livroa = new ArrayList<>();
 
     public Autor() {
     }
@@ -64,14 +62,6 @@ public class Autor {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
-//    public List<Livro> getLivroa() {
-//        return livroa;
-//    }
-//
-//    public void setLivroa(List<Livro> livroa) {
-//        this.livroa = livroa;
-//    }
 
     @PrePersist
     private void prePersist(){
