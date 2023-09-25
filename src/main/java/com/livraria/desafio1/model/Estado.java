@@ -1,6 +1,7 @@
 package com.livraria.desafio1.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_estado")
@@ -49,5 +50,22 @@ public class Estado {
 
     public void setPais(Pais pais) {
         this.pais = pais;
+    }
+
+    public boolean pertenceAPais(Pais pais) {
+        return this.pais.equals(pais);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Estado estado = (Estado) o;
+        return nome.equals(estado.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome);
     }
 }
