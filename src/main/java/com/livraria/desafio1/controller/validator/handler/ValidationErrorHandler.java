@@ -13,7 +13,7 @@ import java.time.Instant;
 
 @RestControllerAdvice
 public class ValidationErrorHandler {
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    //@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> methodArgument(MethodArgumentNotValidException e, HttpServletRequest request){
         HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError err = new StandardError();
@@ -37,7 +37,7 @@ public class ValidationErrorHandler {
         return ResponseEntity.status(status).body(err);
     }
 
-    @ExceptionHandler(ResourceNotFoundException.class)
+    //@ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<StandardError> resourceNotFoundException(ResourceNotFoundException e, HttpServletRequest request){
         HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError err = new StandardError();

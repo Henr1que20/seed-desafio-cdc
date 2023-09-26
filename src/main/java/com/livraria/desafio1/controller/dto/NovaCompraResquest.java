@@ -1,12 +1,15 @@
 package com.livraria.desafio1.controller.dto;
 
 import com.livraria.desafio1.controller.validator.ExistsId;
+import com.livraria.desafio1.model.Compra;
 import com.livraria.desafio1.model.Estado;
 import com.livraria.desafio1.model.Pais;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.Assert;
 
+import javax.persistence.EntityManager;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -37,11 +40,14 @@ public class NovaCompraResquest {
     private String telefone;
     @NotBlank
     private String cep;
+    @Valid
+    @NotNull
+    private NovoPedidoRequest pedido;
 
     public NovaCompraResquest() {
     }
 
-    public NovaCompraResquest(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Long idPais, Long idEstado, String telefone, String cep) {
+    public NovaCompraResquest(String email, String nome, String sobrenome, String documento, String endereco, String complemento, String cidade, Long idPais, Long idEstado, String telefone, String cep, NovoPedidoRequest pedido) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -53,6 +59,7 @@ public class NovaCompraResquest {
         this.idEstado = idEstado;
         this.telefone = telefone;
         this.cep = cep;
+        this.pedido = pedido;
     }
 
     public String getEmail() {
@@ -99,6 +106,10 @@ public class NovaCompraResquest {
         return cep;
     }
 
+    public NovoPedidoRequest getPedido() {
+        return pedido;
+    }
+
     public boolean documentoValido() {
         // validação para se protejer..
         // ninguem deveria chamar o documentoValido se o dcumento ainda estiver em branco
@@ -111,6 +122,16 @@ public class NovaCompraResquest {
         cnpjValidator.initialize(null);
 
         return cpfValidator.isValid(documento, null) || cnpjValidator.isValid(documento, null);
+    }
+
+    public Compra toModel(EntityManager manager){
+        @NotNull final Pais pais = manager.find(Pais.class, idPais);
+        Compra compra = new Compra(email, nome, sobrenome, documento, endereco, complemento, pais, telefone, cep);
+        if (idEstado != null){
+            compra.setEstado(manager.find(Estado.class,idEstado));
+        }
+
+        return compra;
     }
 
     @Override
@@ -127,6 +148,11 @@ public class NovaCompraResquest {
                 ", idEstado=" + idEstado +
                 ", telefone='" + telefone + '\'' +
                 ", cep='" + cep + '\'' +
+                ", pedido=" + pedido +
                 '}';
+    }
+
+    public boolean temEstado() {
+        return idEstado != null;
     }
 }
